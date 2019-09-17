@@ -1,0 +1,45 @@
+{
+    "name": "protractortest",
+    "version": "1.0.0",
+    "main": "conf.js",
+    "dependencies": {},
+    "devDependencies": {
+        "allure-commandline": "^2.9.0",
+        "allure-js-commons": "^1.3.2",
+        "babel-eslint": "^10.0.3",
+        "chai": "^4.2.0",
+        "chai-as-promised": "^7.1.1",
+        "cucumber": "^4.2.1",
+        "cucumberjs-allure2-reporter": "^1.3.0",
+        "eslint": "^5.16.0",
+        "eslint-config-airbnb": "^18.0.1",
+        "eslint-config-airbnb-base": "^13.1.0",
+        "eslint-config-prettier": "^6.2.0",
+        "eslint-plugin-import": "^2.17.3",
+        "eslint-plugin-prettier": "^3.1.0",
+        "husky": "^3.0.5",
+        "lint-staged": "^9.2.5",
+        "prettier": "^1.18.2",
+        "protractor": "5.4.2",
+        "protractor-cucumber-framework": "^6.1.1",
+        "selenium-standalone": "^6.16.0"
+    },
+    "scripts": {
+        "wd-start": "webdriver-manager update && webdriver-manager start",
+        "generate-report": "./node_modules/allure-commandline/bin/allure generate ./target/allure-results/ -o ./target/allure-report/ --clean",
+        "open-report": "./node_modules/allure-commandline/bin/allure open ./target/allure-report/",
+        "test": "./node_modules/.bin/protractor conf.js",
+        "eslint-command": "./node_modules/.bin/eslint"
+    },
+    "author": "",
+    "license": "ISC",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/klymenko24/"
+    },
+    "bugs": {
+        "url": "https://github.com/klymenko24/"
+    },
+    "homepage": "https://github.com/klymenko24/",
+    "description": ""
+}
