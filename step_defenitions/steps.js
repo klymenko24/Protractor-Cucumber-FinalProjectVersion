@@ -1,68 +1,60 @@
 const {Given, When, Then} = require('cucumber');
-const LoginPage = require('../Page/LoginPage.js.js');
+const LoginPage = require('../Page/LoginPage');
 const CustomersInfoPage = require('../Page/CustomersInfoPage');
-const CustomersDataPage = require('../Page/CustomersDataPage');
 const chai = require('chai');
 const expect = chai.expect;
 
 const newLoginPage = new LoginPage();
 const customersInfoPage = new CustomersInfoPage();
 
-Given('I open page', async function () {
+Given('I open page', async () => {
     await newLoginPage.open();
 });
 
-When('I choose manager account', async function () {
-    await newLoginPage.login('manager')
+When('I choose manager account', async () => {
+    await newLoginPage.login('manager');
 });
 
-When('I choose Add Customer', async function () {
-    await customersInfoPage.clickAddCustomerMain()
+Then('I see a menu with manager functions', async () => {
+    await customersInfoPage.seeAddCustomerMain();
+});
+
+When('I choose Add Customer', async () => {
+    await customersInfoPage.clickAddCustomerMain();
 });
 
 When('I add customers from the list', async data => {
     const userData = data.hashes();
-    for (item of userData) {
-        await customersInfoPage.addFirstName(item['First Name']);
-        await customersInfoPage.addLastName(item['Last Name']);
-        await customersInfoPage.addPostCode(item['Post Code'])
-        await customersInfoPage.clickAddCustomer()
-        await customersInfoPage.closeAlertMessage()
-    }
-})
+    await customersInfoPage.createMultCustomers(userData);
+});
 
-When('I close alert message', async function () {
-        await customersInfoPage.closeAlertMessage();
-    })
+When('I close alert message', async () => {
+    await customersInfoPage.closeAlertMessage();
+});
 
-When('I click on Customers button', async function () {
-        await customersInfoPage.clickCustomers()
-    })
+When('I click on Customers button', async () => {
+    await customersInfoPage.clickCustomers();
+});
 
-Then('I check customer in table', async function () {
-        await customersInfoPage.findCustomer(CustomersDataPage.name).then(function (text) {
-            expect(text).to.equal(true)
-        })
-    })
+Then('I check customer in table', async data => {
+    const dataUser = data.rowsHash();
+    const name = await customersInfoPage.findCustomer(dataUser.name);
+    expect(name).to.equal(true);
+});
 
-When('I delete customer', async function () {
-        await customersInfoPage.deleteByName(CustomersDataPage.name)
-    })
+When('I delete customer', async data => {
+    const dataUser = data.rowsHash();
+    await customersInfoPage.deleteByName(dataUser.name);
+});
 
-Then('I check customer is not in table', async function () {
-        await customersInfoPage.findCustomer(CustomersDataPage.name).then(function (text) {
-        expect(text).to.equal(false)
-        })
-    })
+Then('I check customer is not in table', async () => {
+    const dataUser = data.rowsHash();
+    const name = await customersInfoPage.findCustomer(dataUser.name);
+    expect(name).to.equal(false);
+});
 
 Then('I check customer from the list not in table', async data => {
     const result = data.rowsHash();
-    const arr = await $$('.table tbody tr').filter(async row => {
-        const title = await row.$('td:nth-of-type(1)').getText()
-        const lastName = await row.$('td:nth-of-type(2').getText()
-        const postCode = await row.$('td:nth-of-type(3)').getText()
-        return result.First_Name === title && result.Last_Name === lastName && result.Post_Code === postCode
-    })
-    console.log(arr)
-    expect(arr, 'Customer in table from the list').to.be.empty;
-})
+    const review = customersInfoPage.checkRemovalCustomer(result);
+    expect(review, 'Customer in table from the list').to.be.empty;
+});

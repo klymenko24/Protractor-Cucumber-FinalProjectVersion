@@ -7,11 +7,11 @@ class LoginPage extends BasePage {
     }
 
     async login(role) {
-        await this.waitForElement(this.loginManagerBtn)
+        await this.waitForElement(this.loginManagerBtn);
         if (role === 'manager') {
-            await this.loginManagerBtn.click()
+            await this.loginManagerBtn.click();
         } else {
-            await this.loginCustomerBtn.click()
+            await this.loginCustomerBtn.click();
         }
     }
 }
