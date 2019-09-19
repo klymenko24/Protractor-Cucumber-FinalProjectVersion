@@ -2,9 +2,9 @@ Feature: Login to the system as a Manager and add new customer
 
   Scenario: Open page and login
     Given I open page
-    When  I choose manager account
-    Then  I see a menu with manager functions
- 
+    When  I choose 'manager' account
+    Then  I should see a menu with manager functions
+
   Scenario: Creating new customer with valid data
     When I choose Add Customer
     And  I add customers from the list

@@ -1,6 +1,6 @@
 class BasePage {
   open(params) {
-    return browser.get(browser.baseUrl)
+    return browser.get(browser.baseUrl);
   }
 
   waitForElement(elm) {

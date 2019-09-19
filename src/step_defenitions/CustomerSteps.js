@@ -11,11 +11,11 @@ Given('I open page', async () => {
     await newLoginPage.open();
 });
 
-When('I choose manager account', async () => {
-    await newLoginPage.login('manager');
-});
+When('I choose {string} account', async (string) => {
+    await newLoginPage.login(string);
+})
 
-Then('I see a menu with manager functions', async () => {
+Then('I should see a menu with manager functions', async () => {
     await customersInfoPage.seeAddCustomerMain();
 });
 

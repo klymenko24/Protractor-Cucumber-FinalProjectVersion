@@ -29,7 +29,7 @@
         "generate-report": "./node_modules/allure-commandline/bin/allure generate ./target/allure-results/ -o ./target/allure-report/ --clean",
         "open-report": "./node_modules/allure-commandline/bin/allure open ./target/allure-report/",
         "test": "./node_modules/.bin/protractor conf.js",
-        "eslint-command": "./node_modules/.bin/eslint"
+        "eslint-command": "./node_modules/.bin/eslint ./src --fix"
     },
     "author": "",
     "license": "ISC",

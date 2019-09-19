@@ -2,9 +2,9 @@ exports.config = {
   framework: 'custom',
   frameworkPath: require.resolve('protractor-cucumber-framework'),
   seleniumAddress: 'http://localhost:4444/wd/hub',
-  specs: ['./features/*.feature'],
+  specs: ['./src/features/*.feature'],
   cucumberOpts: {
-    require: ['./step_defenitions/CustomerSteps.js'],
+    require: ['./src/step_defenitions/CustomerSteps.js'],
     //format: ['./features/support/Reporter.js']
   },
   capabilities: {

@@ -3,9 +3,9 @@ class CustomersInfoPage extends BasePage {
     constructor() {
         super();
         this.clickAddBtn = $('[ng-click="addCust()"]'),
-        this.CustomerNameField = $('[ng-model="fName"]'),//
-        this.CustomerLastNameField = $('[ng-model="lName"]'),//
-        this.CustomerPostCodeField = $('[ng-model="postCd"]'),//
+        this.CustomerNameField = $('[ng-model="fName"]'), //
+        this.CustomerLastNameField = $('[ng-model="lName"]'), //
+        this.CustomerPostCodeField = $('[ng-model="postCd"]'), //
         this.customerAddBtn = $('.btn-default'),
         this.customersBtn = $('[ng-click="showCust()"]'),
         this.deleteBtn = $('tr:nth-child(6) > td:nth-child(5) > button'),
@@ -41,11 +41,6 @@ class CustomersInfoPage extends BasePage {
         await this.customerAddBtn.click();
     }
 
-    async checkAlertText() {
-        const alertDialog =  await browser.switchTo().alert();
-        return alertDialog.getText();
-    }
-
     async closeAlertMessage() {
         await browser.switchTo().alert().accept();
     }
@@ -64,10 +59,6 @@ class CustomersInfoPage extends BasePage {
         await this.customersBtn.click();
     }
 
-    async clickDeleteCustomer() {
-        await this.deleteBtn.click();
-    }
-
     async findCustomer(name) {
         return element(by.cssContainingText(this.ourTable, name)).isPresent();
     }
@@ -77,15 +68,16 @@ class CustomersInfoPage extends BasePage {
             const title = await row.$(this.firstNameColumn).getText()
             return title === name
         })
+        if(infoFromTable.length < 0) throw Error('Can not find row with name' + "${name}")
         await infoFromTable[0].$(this.deleteCustomerColumn).click();
     }
 
-    async checkRemovalCustomer() {
+    async checkRemovalCustomer(result) {
         const infoFromTable = await this.wholeTable.filter(async row => {
             const title = await row.$(this.firstNameColumn).getText();
             const lastName = await row.$(this.lastNameColumn).getText();
             const postCode = await row.$(this.postCodeColumn).getText();
-            return result.First_Name === title && result.Last_Name === lastName && result.Post_Code === postCode;
+            return result['First Name'] === title && result['Last Name'] === lastName && result['Post Code'] === postCode;
         })
         return infoFromTable;
     }
